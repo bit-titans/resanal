@@ -5,8 +5,8 @@ class ResultSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Result
-        fields = ('usn','gpa')
-        #fields = '__all__'
+        #fields = ('usn','gpa')
+        fields = '__all__'
 
 class FetchSerializer(serializers.ModelSerializer):
 
