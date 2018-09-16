@@ -3,19 +3,25 @@ import bs4
 from lxml import html
 from .models import Result, Fetch
 class CrawlResult:
-    def store_result(self,scode,sname,imarks,emarks,copymarks,marks,containers_new):
+    def store_result(self,scode,sname,imarks,emarks,copymarks,marks,containers_new,r):
         
         rname = containers_new[3].text.encode('utf-8')[2:]
         rusn = containers_new[1].text.encode('utf-8')[3:]
         rgpa = round(((sum(marks))/28.0),2)
 
-        r = Result.objects.create(name= rname, usn = rusn, gpa = rgpa)
-        for i in xrange(8):
-            Fetch.objects.create(initial = r, subcode= scode[i],subname=sname[i],intmarks= imarks[i],extmarks= emarks[i],totalmarks= copymarks[i])
+        Result.objects.filter(usn__iexact=r.usn).update(gpa=rgpa)
+
+        #r = Result.objects.create(name= rname, usn = rusn, gpa = rgpa)
+        for i in xrange(6):
+            Fetch.objects.create(res = r, subcode= scode[i],subname=sname[i],intmarks= imarks[i],extmarks= emarks[i],totalmarks= copymarks[i],grade = (marks[i]/4) )
+
+        for i in range(6,8):
+            Fetch.objects.create(res = r, subcode= scode[i],subname=sname[i],intmarks= imarks[i],extmarks= emarks[i],totalmarks= copymarks[i],grade = (marks[i]/2) )
+
         return
         
 
-    def get_gpa(self,containers,containers_new):
+    def get_gpa(self,containers,containers_new,r):
         copymarks = []
         marks = []
         imarks = []
@@ -89,9 +95,9 @@ class CrawlResult:
                 marks[i] = 2*10
         #print(round(((sum(marks))/28.0),2),containers_new[1].text.encode('utf-8')[3:],containers_new[3].text.encode('utf-8')[2:])
 
-        self.store_result(scode,sname,imarks,emarks,copymarks,marks,containers_new)
+        self.store_result(scode,sname,imarks,emarks,copymarks,marks,containers_new,r)
 
-    def crawler(self,usn,authenticity_token):
+    def crawler(self,usn,authenticity_token,r):
         try:
 
             url = 'http://results.vtu.ac.in/vitaviresultcbcs2018/resultpage.php'
@@ -104,7 +110,7 @@ class CrawlResult:
             containers = soup.find_all('div', class_ = 'divTableCell')
             containers_new = soup.find_all('td')
 
-            self.get_gpa(containers,containers_new)
+            self.get_gpa(containers,containers_new,r)
             
         except IndexError:
             return None
@@ -117,11 +123,16 @@ class CrawlResult:
 
         tree = html.fromstring(result.text)
         authenticity_token = list(set(tree.xpath("//input[@name='token']/@value")))[0]
-        for i in range(p,q):
-            if (len(str(i)) == 1):
-                usn = usn_series +"00"+str(i)
-            elif (len(str(i)) == 2):
-                usn = usn_series+"0"+str(i)
-            else:
-                usn = usn_series + str(i)
-            self.crawler(usn,authenticity_token)
+        r = Result.objects.all()
+        length = r.count()
+        for i in xrange(length):
+            usn = r[i].usn
+            self.crawler(usn,authenticity_token,r[i])
+        # for i in range(p,q):
+        #     if (len(str(i)) == 1):
+        #         usn = usn_series +"00"+str(i)
+        #     elif (len(str(i)) == 2):
+        #         usn = usn_series+"0"+str(i)
+        #     else:
+        #         usn = usn_series + str(i)
+        #     self.crawler(usn,authenticity_token)

@@ -6,12 +6,17 @@ from django.db import models
 # Create your models here.
 
 class Result(models.Model):
-    name = models.CharField(max_length = 11,unique=True)
+
+    class Meta:
+        unique_together = (('usn', 'sem', ),)
+
+    #name = models.CharField(max_length = 11,unique=True)
+    name = models.CharField(max_length = 40)
     usn = models.CharField(max_length = 50)
-    sem = models.IntegerField()
-    section = models.CharField(max_length=1)
-    batch = models.IntegerField()
-    gpa = models.FloatField()
+    sem = models.IntegerField(null=True)
+    section = models.CharField(max_length=1,null=True)
+    batch = models.IntegerField(null=True)
+    gpa = models.FloatField(null=True, blank = True)
 
     #volume = models.IntegerField
 
@@ -25,15 +30,22 @@ class Fetch(models.Model):
     intmarks = models.IntegerField()
     extmarks = models.IntegerField()
     totalmarks = models.IntegerField()
-    grade = models.IntegerField()
+    grade = models.IntegerField(null=True)
 
-class Analysis(models.Model):
-    sem = models.IntegerField()
-    subcode = models.CharField(max_length = 10, unique = True)
-    subname = models.CharField(max_length = 100)
-    pass_count = models.IntegerField()
-    fail_count = models.IntegerField()
-    
+
+# class Analysis(models.Model):
+
+#     class Meta:
+#         unique_together = (('batch', 'sem', 'subcode'),)
+
+#     batch = models.IntegerField()
+#     sem = models.IntegerField()
+#     subcode = models.CharField(max_length = 10)
+#     subname = models.CharField(max_length = 100)
+#     pass_count = models.IntegerField()
+#     fail_count = models.IntegerField()
+
+
 
     def __str__(self):
-        return self.initial.name
+        return self.res.name

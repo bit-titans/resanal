@@ -24,6 +24,7 @@ SECRET_KEY = 'xq2$=6*k_%q-mb@jj@91z_+me)l!#f^^%vot#d6bfeeu-p0atj'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+IMPORT_EXPORT_USE_TRANSACTIONS = True
 
 ALLOWED_HOSTS = []
 
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_multiple_model',
     'resanal.apps.ResanalConfig',
+    'import_export',
 ]
 
 # REST_FRAMEWORK = {
