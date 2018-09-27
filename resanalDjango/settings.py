@@ -40,9 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #'django_filters',
     'rest_framework',
+    'django_filters',
     'drf_multiple_model',
     'resanal.apps.ResanalConfig',
     'import_export',
+    
 ]
 
 # REST_FRAMEWORK = {

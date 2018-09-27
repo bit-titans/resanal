@@ -36,10 +36,13 @@ class ResultList(APIView):
         #serializer = ResultSerializer(results, many=True )
         #return Response(serializer.data)
 
-        queryset = Result.objects.all()
-        gpa = self.request.query_params.get('gpa', None)
-        if gpa is not None:
-            queryset = queryset.filter(gpa=gpa)
+        queryset = Result.objects.order_by('-gpa')
+        qsemester= self.request.query_params.get('sem')
+        qsection = self.request.query_params.get('sec')
+        qbatch = self.request.query_params.get('batch')
+        
+        if(qsection and qsemester and qbatch is not None):
+            queryset = queryset.filter(section=qsection,sem=qsemester,batch=qbatch)
         serializer = ResultSerializer(queryset, many=True )
         return Response(serializer.data)
 
