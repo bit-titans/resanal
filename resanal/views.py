@@ -43,6 +43,8 @@ class ResultList(APIView):
         
         if(qsection and qsemester and qbatch is not None):
             queryset = queryset.filter(section=qsection,sem=qsemester,batch=qbatch)
+        if(qsemester and qbatch is not None):
+            queryset = queryset.filter(sem=qsemester,batch=qbatch)
         serializer = ResultSerializer(queryset, many=True )
         return Response(serializer.data)
 

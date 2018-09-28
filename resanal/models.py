@@ -8,7 +8,7 @@ from django.db import models
 class Result(models.Model):
 
     class Meta:
-        unique_together = (('usn', 'sem', ),)
+        unique_together = (('usn', 'sem','batch' ),)
 
     #name = models.CharField(max_length = 11,unique=True)
     name = models.CharField(max_length = 40)

@@ -26,6 +26,7 @@ SECRET_KEY = 'xq2$=6*k_%q-mb@jj@91z_+me)l!#f^^%vot#d6bfeeu-p0atj'
 DEBUG = True
 IMPORT_EXPORT_USE_TRANSACTIONS = True
 
+CORS_ORIGIN_ALLOW_ALL = True
 ALLOWED_HOSTS = []
 
 
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #'django_filters',
     'rest_framework',
+    'corsheaders',
     'django_filters',
     'drf_multiple_model',
     'resanal.apps.ResanalConfig',
@@ -54,6 +56,8 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
