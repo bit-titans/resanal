@@ -64,8 +64,7 @@ class FetchList(APIView):
 def crawl(request):
     
     resultcrawl = CrawlResult()
-    series = "1bi16cs"
-    resultcrawl.initiate(1,200,series)
+    resultcrawl.initiate()
 
     return HttpResponse("<h1>Crawling on process</h1>")
     

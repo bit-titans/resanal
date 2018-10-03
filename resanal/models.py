@@ -24,7 +24,11 @@ class Result(models.Model):
         return (self.name)
 
 class Fetch(models.Model):
-    res = models.ForeignKey(Result,on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = (('usn', 'subcode','subname' ),)
+
+    usn = models.ForeignKey(Result,on_delete=models.CASCADE)
     subcode = models.CharField(max_length = 10)
     subname = models.CharField(max_length = 100)
     intmarks = models.IntegerField()
@@ -48,4 +52,4 @@ class Fetch(models.Model):
 
 
     def __str__(self):
-        return self.res.name
+        return self.usn.name
