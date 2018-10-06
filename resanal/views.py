@@ -19,45 +19,70 @@ class MultiAPIView(ObjectMultipleModelAPIView):
         
 
         
-        # qsemester= self.request.query_params('sem')
-        # qsection = self.request.query_params('sec')
-        # qbatch = self.request.query_params('batch')
-        # qsubcode = self.request.query_params('scode')
-        querylist = (
-            
-            {
-                'queryset': Fetch.objects.filter(usn__sem = 4, usn__section  = 'C', usn__batch=2016,subcode = '15CS42', totalmarks__gte = 40),
-                'serializer_class': FetchSerializer,
-                'label': 'passCount'
-            },
-            {
-                'queryset': Fetch.objects.filter(usn__sem = 4, usn__section  = 'C', usn__batch=2016,subcode = '15CS42', totalmarks__lt = 40),
-                'serializer_class': FetchSerializer,
-                'label': 'failCount',
-            },
-        )
-
-        return querylist
-        # filter_backends = [filters.SearchFilter,]
-        # search_fields = ('usn',)
-   
-class ResultList(APIView):
-    def get(self, request):
-        #results = Result.objects.all()
-        #serializer = ResultSerializer(results, many=True )
-        #return Response(serializer.data)
-
-        queryset = Result.objects.order_by('-gpa')
         qsemester= self.request.query_params.get('sem')
         qsection = self.request.query_params.get('sec')
         qbatch = self.request.query_params.get('batch')
+        qsubcode = self.request.query_params.get('scode')
+        if(qsemester and qsection and qbatch and qsubcode is not None):
+            querylist = (
+                
+                {
+                    'queryset': Fetch.objects.filter(usn__sem = qsemester, usn__section  = qsection, usn__batch=qbatch,subcode = qsubcode, totalmarks__gte = 40),
+                    'serializer_class': FetchSerializer,
+                    'label': 'passCount'
+                },
+                {
+                    'queryset': Fetch.objects.filter(usn__sem = qsemester, usn__section  = qsection, usn__batch=qbatch,subcode = qsubcode, totalmarks__lt = 40),
+                    'serializer_class': FetchSerializer,
+                    'label': 'failCount',
+                },
+            )
+
+            return querylist
+            # filter_backends = [filters.SearchFilter,]
+            # search_fields = ('usn',)
+   
+class MultiAPIView1(ObjectMultipleModelAPIView):
+    def get_querylist(self):
+        #results = Result.objects.all()
+        #serializer = ResultSerializer(results, many=True )
+        #return Response(.data)
+        setquery = Result.objects.order_by('-gpa')
+        qsemester= self.request.query_params.get('sem')
+        qsection = self.request.query_params.get('sec')
+        qbatch = self.request.query_params.get('batch')
+        serializer_class = ResultSerializer
         
-        if(qsection and qsemester and qbatch is not None):
-            queryset = queryset.filter(section=qsection,sem=qsemester,batch=qbatch)
+        
         if(qsemester and qbatch is not None):
-            queryset = queryset.filter(sem=qsemester,batch=qbatch)
-        serializer = ResultSerializer(queryset, many=True )
-        return Response(serializer.data)
+            querylist = (
+                
+                {
+                    'queryset': setquery.filter(sem = qsemester, batch = qbatch, gpa__gte = 4),
+                    'serializer_class': ResultSerializer,
+                    'label': 'passCount'
+                },
+                {
+                    'queryset': setquery.filter(sem = qsemester, batch = qbatch, gpa__lt = 4),
+                    'serializer_class': ResultSerializer,
+                    'label': 'failCount',
+                },
+                {
+                    'queryset': setquery.filter(sem = qsemester, batch = qbatch),
+                    'serializer_class': ResultSerializer,
+                    'label': 'totalResult',
+                },
+
+            )
+
+            return querylist
+        
+        #     queryset = queryset.filter(sem=qsemester,batch=qbatch)
+        # serializer = ResultSerializer(queryset, many=True )
+        # return Response(serializer.data)
+    def get_serializer_class(self):
+        return ResultSerializer
+    
 
 
     def post(self):
