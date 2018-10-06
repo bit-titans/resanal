@@ -22,7 +22,7 @@ class MultiAPIView(ObjectMultipleModelAPIView):
         qsemester= self.request.query_params.get('sem')
         qsection = self.request.query_params.get('sec')
         qbatch = self.request.query_params.get('batch')
-        qsubcode = self.request.query_params.get('scode')
+        qsubcode = self.request.query_params.get('scode').rpartition(' ')[0]
         if(qsemester and qsection and qbatch and qsubcode is not None):
             querylist = (
                 
