@@ -36,6 +36,10 @@ class Fetch(models.Model):
     totalmarks = models.IntegerField()
     grade = models.IntegerField(null=True)
 
+    def __str__(self):
+        return self.usn.name
+
+
 
 # class Analysis(models.Model):
 
@@ -51,5 +55,4 @@ class Fetch(models.Model):
 
 
 
-    def __str__(self):
-        return self.usn.name
+    

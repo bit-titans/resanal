@@ -8,11 +8,12 @@ class ResultSerializer(serializers.ModelSerializer):
         model = Result
         #fields = ('usn','gpa')
         fields = '__all__'
-        filter_backends = (DjangoFilterBackend,)
-        filter_fields = ('sem','section','batch')        
+        # filter_backends = (DjangoFilterBackend,)
+        # filter_fields = ('sem','section','batch')        
 
 class FetchSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Fetch
-        fields = '__all__'
+        fields = ('id','usn')
+    

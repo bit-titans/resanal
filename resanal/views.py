@@ -15,21 +15,32 @@ import re
 
 
 class MultiAPIView(ObjectMultipleModelAPIView):
-    querylist = [
-        {
-            'queryset': Result.objects.all(),
-            'serializer_class': ResultSerializer,
-            'label': 'usn_gpa',
-        },
-        {
-            'queryset': Fetch.objects.all(),
-            'serializer_class': FetchSerializer,
-            'label': 'indMarks'
-        },
-    ]
-    # filter_backends = [filters.SearchFilter,]
-    # search_fields = ('usn',)
+    def get_querylist(self):
+        
 
+        
+        # qsemester= self.request.query_params('sem')
+        # qsection = self.request.query_params('sec')
+        # qbatch = self.request.query_params('batch')
+        # qsubcode = self.request.query_params('scode')
+        querylist = (
+            
+            {
+                'queryset': Fetch.objects.filter(usn__sem = 4, usn__section  = 'C', usn__batch=2016,subcode = '15CS42', totalmarks__gte = 40),
+                'serializer_class': FetchSerializer,
+                'label': 'passCount'
+            },
+            {
+                'queryset': Fetch.objects.filter(usn__sem = 4, usn__section  = 'C', usn__batch=2016,subcode = '15CS42', totalmarks__lt = 40),
+                'serializer_class': FetchSerializer,
+                'label': 'failCount',
+            },
+        )
+
+        return querylist
+        # filter_backends = [filters.SearchFilter,]
+        # search_fields = ('usn',)
+   
 class ResultList(APIView):
     def get(self, request):
         #results = Result.objects.all()
@@ -54,7 +65,9 @@ class ResultList(APIView):
 
 class FetchList(APIView):
     def get(self, request):
-        fetches = Fetch.objects.all()
+        
+        fetches = Fetch.objects.filter(usn__sem = 4,usn__section = 'C', usn__batch = 2016,subcode='15CS42',totalmarks__gte= 40)
+
         serializer = FetchSerializer(fetches, many=True )
         return Response(serializer.data)
 
