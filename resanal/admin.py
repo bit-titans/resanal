@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.contrib import admin
-from .models import Result, Fetch
+from .models import Result, Fetch, Analize
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 
@@ -23,3 +23,4 @@ class ResultAdmin(ImportExportModelAdmin):
 
 admin.site.register(Result,ResultAdmin)
 admin.site.register(Fetch)
+admin.site.register(Analize)

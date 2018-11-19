@@ -39,19 +39,25 @@ class Fetch(models.Model):
     def __str__(self):
         return self.usn.name
 
+class Analize(models.Model):
+
+    class Meta:
+        unique_together = (('batch', 'sem','sec','subcode' ),)
+
+    batch = models.IntegerField()
+    sem = models.IntegerField()
+    sec = models.CharField(max_length = 1)
+    subcode = models.CharField(max_length = 10)
+    passCount = models.FloatField()
+    failCount = models.FloatField()
+    totalCount = models.FloatField()
+    average = models.FloatField()
+
+    def __str__(self):
+        return str(self.batch) + " " + str(self.sem) + " " + str(self.sec) + " " + str(self.subcode)
 
 
-# class Analysis(models.Model):
 
-#     class Meta:
-#         unique_together = (('batch', 'sem', 'subcode'),)
-
-#     batch = models.IntegerField()
-#     sem = models.IntegerField()
-#     subcode = models.CharField(max_length = 10)
-#     subname = models.CharField(max_length = 100)
-#     pass_count = models.IntegerField()
-#     fail_count = models.IntegerField()
 
 
 

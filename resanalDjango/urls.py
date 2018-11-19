@@ -5,11 +5,13 @@ from resanal import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^json/', views.MultiAPIView1.as_view()),
+    url(r'^json/', views.ResultList.as_view()),
     url(r'^json1/', views.FetchList.as_view()),
     url(r'^json2/', views.MultiAPIView.as_view()),
     url(r'^crawl/',views.crawl),
+    url(r'^analize/',views.analysis),
     url(r'^results/',views.ResultsView.as_view()),
+    url(r'^ranalysis/',views.AnalizeApi.as_view()),
 ]
 
 #urlpatterns = format_suffix_patterns(urlpatterns)
