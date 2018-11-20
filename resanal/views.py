@@ -24,7 +24,24 @@ class MultiAPIView(ObjectMultipleModelAPIView):
         
         qsemester= self.request.query_params.get('sem')
         qbatch = self.request.query_params.get('batch')
-        if(qsemester and qbatch):
+        qsection = self.request.query_params.get('sec')
+        if(qsemester and qbatch and qsection):
+            querylist = (
+                
+                {
+                    'queryset': Result.objects.filter(sem = qsemester, batch=qbatch,section=qsection, gpa__gte = 4),
+                    'serializer_class': ResultSerializer,
+                    'label': 'passCount'
+                },
+                {
+                    'queryset': Result.objects.filter(sem = qsemester, batch=qbatch,section = qsection, gpa__lt = 4),
+                    'serializer_class': ResultSerializer,
+                    'label': 'failCount',
+                },
+            )
+
+            return querylist
+        elif(qsemester and qbatch):
             querylist = (
                 
                 {
@@ -40,6 +57,7 @@ class MultiAPIView(ObjectMultipleModelAPIView):
             )
 
             return querylist
+        
             # filter_backends = [filters.SearchFilter,]
             # search_fields = ('usn',)
    
