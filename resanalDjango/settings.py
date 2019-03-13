@@ -24,13 +24,9 @@ SECRET_KEY = 'xq2$=6*k_%q-mb@jj@91z_+me)l!#f^^%vot#d6bfeeu-p0atj'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-<<<<<<< HEAD
 IMPORT_EXPORT_USE_TRANSACTIONS = True
 
 CORS_ORIGIN_ALLOW_ALL = True
-=======
-
->>>>>>> 251e90d840ba34262f62b20c27ec7291a10773b9
 ALLOWED_HOSTS = []
 
 
@@ -45,17 +41,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #'django_filters',
     'rest_framework',
-<<<<<<< HEAD
     'corsheaders',
     'django_filters',
     'drf_multiple_model',
     'resanal.apps.ResanalConfig',
     'import_export',
     
-=======
-    'drf_multiple_model',
-    'resanal.apps.ResanalConfig',
->>>>>>> 251e90d840ba34262f62b20c27ec7291a10773b9
 ]
 
 # REST_FRAMEWORK = {
@@ -65,11 +56,8 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-<<<<<<< HEAD
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
-=======
->>>>>>> 251e90d840ba34262f62b20c27ec7291a10773b9
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
