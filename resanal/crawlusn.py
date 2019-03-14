@@ -15,8 +15,8 @@ class CrawlResult:
         
             rname = containers_new[3].text.encode('utf-8')[2:]
             rusn = containers_new[1].text.encode('utf-8')[3:]
-            if r.sem == 2:
-                rgpa = round(((sum(marks) - marks[len(marks)-1])/tg),2)
+            if r.sem == 7:
+                rgpa = round(((sum(marks))/tg),2)
             else:
                 rgpa = round(((sum(marks))/tg),2)
         
@@ -60,9 +60,9 @@ class CrawlResult:
             for ind in index2:
                 emarks.append((containers[ind].text).encode('utf-8'))
             for ind in index3:
-                scode.append((containers[ind].text).encode('utf-8'))
+                scode.append((containers[ind].text))
             for ind in index4:
-                sname.append((containers[ind].text).encode('utf-8'))
+                sname.append((containers[ind].text))
             # marks.append((containers[16].text).encode('utf-8'))
             # marks.append((containers[22].text).encode('utf-8'))
             # marks.append((containers[28].text).encode('utf-8'))
@@ -76,7 +76,7 @@ class CrawlResult:
                 imarks[i] = float(imarks[i])
             for i in range(len(emarks)):
                 emarks[i] = float(emarks[i])
-            if r.sem == 2:
+            if r.sem == 7:
                 low = 0
                 high = 5
                 tg = 24.

@@ -53,9 +53,9 @@ for ind in index1:
 for ind in index2:
     emarks.append((containers[ind].text).encode('utf-8'))
 for ind in index3:
-    scode.append((containers[ind].text).encode('utf-8'))
+    scode.append((containers[ind].text))
 for ind in index4:
-    sname.append((containers[ind].text).encode('utf-8'))
+    sname.append((containers[ind].text))
 # marks.append((containers[16].text).encode('utf-8'))
 # marks.append((containers[22].text).encode('utf-8'))
 # marks.append((containers[28].text).encode('utf-8'))
@@ -115,7 +115,7 @@ for i in range(high,high+2):
         marks[i] = 2*10
 
 print(marks)
-print(scode)
+print(sname)
 
 
 #The search() function returns a Match object:
