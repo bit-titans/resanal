@@ -15,7 +15,7 @@ class FetchSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Fetch
-        fields = ('id','usn')
+        fields = '__all__'
 
 class AnalizeSerializer(serializers.ModelSerializer):
     
