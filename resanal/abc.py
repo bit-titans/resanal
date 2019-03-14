@@ -14,7 +14,7 @@ image = s.get("http://results.vtu.ac.in/resultsvitavicbcs_19/captcha_new.php", h
 with open("snap.png", 'wb') as file:
     file.write(image.content)
 cap = pytesseract.image_to_string("snap.png")
-USN = "1BI16CS177"
+USN = "1BI15CS177"
 url = "http://results.vtu.ac.in/resultsvitavicbcs_19/resultpage.php"
 
 # url = "http://results.vtu.ac.in/resultsvitavicbcs_19/resultpage.php"
@@ -42,7 +42,7 @@ index2 = [9,15,21,27,33,39,45,51]
 index3 = [6,12,18,24,30,36,42,48]
 index4 = [7,13,19,25,31,37,43,49]
 low = 0
-high = 6
+high = 5
 tg = 26.
 
 for ind in index:
@@ -96,7 +96,7 @@ for i in range(len(scode)):
         marks[i] = int((marks[i]*3)/4)
     
     
-for i in range(high,high+2):
+for i in range(high,high+3):
     if(marks[i]<40):
         marks[i] = 0
     elif(marks[i]<45):
@@ -116,6 +116,7 @@ for i in range(high,high+2):
 
 print(marks)
 print(sname)
+print(scode)
 
 
 #The search() function returns a Match object:

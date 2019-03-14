@@ -8,7 +8,7 @@ from django.http import HttpResponse
 from django.db import IntegrityError
 import re
 class CrawlResult:
-    def store_result(self,scode,sname,imarks,emarks,copymarks,marks,containers_new,high,tg,r):
+    def store_result(self,scode,sname,imarks,emarks,copymarks,marks,containers_new,high,end,tg,r):
 
         try:
 
@@ -27,7 +27,7 @@ class CrawlResult:
             for i in range(high):
                 Fetch.objects.create(usn = r, subcode= scode[i],subname=sname[i],intmarks= imarks[i],extmarks= emarks[i],totalmarks= copymarks[i],grade = (marks[i]/4) )
 
-            for i in range(high,high+2):
+            for i in range(high,end):
                 Fetch.objects.create(usn = r, subcode= scode[i],subname=sname[i],intmarks= imarks[i],extmarks= emarks[i],totalmarks= copymarks[i],grade = (marks[i]/2) )
 
             return
@@ -50,6 +50,7 @@ class CrawlResult:
             index4 = [7,13,19,25,31,37,43,49]
             low = 0
             high = 6
+            end = high+2
             tg = 26.
 
             for ind in index:
@@ -79,6 +80,7 @@ class CrawlResult:
             if r.sem == 7:
                 low = 0
                 high = 5
+                end = high+3
                 tg = 24.
             
 
@@ -106,7 +108,7 @@ class CrawlResult:
                 if(x is not None):
                     marks[i] = int((marks[i]*3)/4)
                 
-            for i in range(high,high+2):
+            for i in range(high,end):
                 if(marks[i]<40):
                     marks[i] = 0
                 elif(marks[i]<45):
@@ -125,7 +127,7 @@ class CrawlResult:
                     marks[i] = 2*10
             #print(round(((sum(marks))/28.0),2),containers_new[1].text.encode('utf-8')[3:],containers_new[3].text.encode('utf-8')[2:])
 
-            self.store_result(scode,sname,imarks,emarks,copymarks,marks,containers_new,high,tg,r)
+            self.store_result(scode,sname,imarks,emarks,copymarks,marks,containers_new,high,end,tg,r)
         except IntegrityError:
             return None
 
@@ -168,7 +170,7 @@ class CrawlResult:
 
             tree = html.fromstring(result.text)
             authenticity_token = list(set(tree.xpath("//input[@name='token']/@value")))[0]
-            r = Result.objects.filter(gpa=None)
+            r = Result.objects.filter(batch=2016,sem=5,gpa=None)
         
             length = r.count()
             for i in range(length):
