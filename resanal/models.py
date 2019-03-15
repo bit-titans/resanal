@@ -28,7 +28,7 @@ class Fetch(models.Model):
     class Meta:
         unique_together = (('usn', 'subcode','subname' ),)
 
-    usn = models.ForeignKey(Result,on_delete=models.CASCADE)
+    usn = models.ForeignKey(Result,related_name='maping',on_delete=models.CASCADE)
     subcode = models.CharField(max_length = 10)
     subname = models.CharField(max_length = 100)
     intmarks = models.IntegerField()

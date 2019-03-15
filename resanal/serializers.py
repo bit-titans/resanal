@@ -1,21 +1,24 @@
 from rest_framework import serializers
 # from django_filters.rest_framework import DjangoFilterBackend
 from .models import Result, Fetch, Analize
-
-class ResultSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Result
-        #fields = ('usn','gpa')
-        fields = '__all__'
-        # filter_backends = (DjangoFilterBackend,)
-        # filter_fields = ('sem','section','batch')        
+  
 
 class FetchSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Fetch
         fields = '__all__'
+        
+
+class ResultSerializer(serializers.ModelSerializer):
+
+    maping = FetchSerializer(many=True)
+
+    class Meta:
+        model = Result
+        #fields = ('usn','gpa')
+        fields = ('name','usn','sem','section','batch','gpa','maping')  
+
 
 class AnalizeSerializer(serializers.ModelSerializer):
     

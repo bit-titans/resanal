@@ -27,7 +27,7 @@ DEBUG = True
 IMPORT_EXPORT_USE_TRANSACTIONS = True
 
 CORS_ORIGIN_ALLOW_ALL = True
-ALLOWED_HOSTS = ['vkhand.pythonanywhere.com']
+ALLOWED_HOSTS = ['vkhand.pythonanywhere.com','127.0.0.1']
 
 
 # Application definition

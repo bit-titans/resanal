@@ -71,9 +71,20 @@ class ResultList(APIView):
         qsection = self.request.query_params.get('sec')
         qbatch = self.request.query_params.get('batch')
         qusn = self.request.query_params.get('usn')
-        
+        qscode = self.request.query_params.get('scode')
+
+        if(qsemester and qbatch and qsection and qscode is not None):
+            # qscode = maping['scode']
+            results = Fetch.objects.filter(usn__sem=qsemester,usn__batch=qbatch,usn__section=qsection,subcode=qscode).order_by('-totalmarks')
+
+            # results = queryset.filter(sem = qsemester, batch = qbatch, section = qsection)
+
+            serializer = FetchSerializer(results, many=True )
+            return Response(serializer.data)
+
         
         if(qsemester and qbatch and qsection is not None):
+            # qscode = maping['scode']
             results = queryset.filter(sem = qsemester, batch = qbatch, section = qsection)
 
             serializer = ResultSerializer(results, many=True )
@@ -91,6 +102,11 @@ class ResultList(APIView):
     
         if(qsemester and qbatch is not None):
             results = queryset.filter(sem = qsemester, batch = qbatch)
+
+            serializer = ResultSerializer(results, many=True )
+            return Response(serializer.data)
+        if(qusn is not None):
+            results = queryset.filter(usn=qusn)
 
             serializer = ResultSerializer(results, many=True )
             return Response(serializer.data)
