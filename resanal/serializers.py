@@ -4,7 +4,7 @@ from .models import Result, Fetch, Analize
   
 
 class FetchSerializer(serializers.ModelSerializer):
-
+    # abc = serializers.Fo
     class Meta:
         model = Fetch
         fields = '__all__'

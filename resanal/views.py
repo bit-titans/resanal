@@ -81,11 +81,15 @@ class ResultList(APIView):
 
             serializer = FetchSerializer(results, many=True )
             return Response(serializer.data)
+            # results = queryset.filter(sem = qsemester, batch = qbatch, section = qsection,maping__subcode=qscode)
 
-        
+            # serializer = ResultSerializer(results, many=True )
+            # return Response(serializer.data)
+
+        #sectionwise analysis
         if(qsemester and qbatch and qsection is not None):
             # qscode = maping['scode']
-            results = queryset.filter(sem = qsemester, batch = qbatch, section = qsection)
+            results = queryset.filter(sem = qsemester, batch = qbatch, section = qsection,maping__subcode='15CS51')
 
             serializer = ResultSerializer(results, many=True )
             return Response(serializer.data)
