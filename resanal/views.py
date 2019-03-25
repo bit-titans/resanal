@@ -89,7 +89,7 @@ class ResultList(APIView):
         #sectionwise analysis
         if(qsemester and qbatch and qsection is not None):
             # qscode = maping['scode']
-            results = queryset.filter(sem = qsemester, batch = qbatch, section = qsection,maping__subcode='15CS51')
+            results = queryset.filter(sem = qsemester, batch = qbatch, section = qsection)
 
             serializer = ResultSerializer(results, many=True )
             return Response(serializer.data)
