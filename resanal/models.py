@@ -35,6 +35,7 @@ class Fetch(models.Model):
     extmarks = models.IntegerField()
     totalmarks = models.IntegerField()
     grade = models.IntegerField(null=True)
+    FCD = models.CharField(max_length=3)
 
     def __str__(self):
         return self.usn.name
