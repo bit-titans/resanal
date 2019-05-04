@@ -25,4 +25,12 @@ class AnalizeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Analize
         fields = '__all__'
-    
+
+class FCDSerializer(serializers.ModelSerializer):
+    name = serializers.CharField(source='usn.name')
+    usn = serializers.CharField(source='usn.usn')
+    class Meta:
+        model = Fetch
+        fields = ('name', 'usn', 'intmarks', 'extmarks', 'totalmarks', 'FCD')
+
+
