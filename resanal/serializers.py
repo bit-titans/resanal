@@ -34,3 +34,13 @@ class FCDSerializer(serializers.ModelSerializer):
         fields = ('name', 'usn', 'intmarks', 'extmarks', 'totalmarks', 'FCD')
 
 
+class SectionFCDSerializer(serializers.ModelSerializer):
+    name = serializers.CharField(source='usn.name')
+    usn = serializers.CharField(source='usn.usn')
+    section = serializers.CharField(source='usn.section')
+
+    class Meta:
+        model = Fetch
+        fields = ('name', 'usn','section','subcode','intmarks', 'extmarks', 'totalmarks', 'FCD')
+
+

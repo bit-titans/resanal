@@ -10,7 +10,7 @@ from rest_framework import status
 from .models import Result, Fetch, Analize
 from . crawlusn import CrawlResult
 from . analizeResult import ResultAnalize
-from .serializers import ResultSerializer, FetchSerializer, AnalizeSerializer, FCDSerializer
+from .serializers import ResultSerializer, FetchSerializer, AnalizeSerializer,SectionFCDSerializer
 import requests
 import bs4
 from lxml import html
@@ -176,16 +176,24 @@ class  AnalizeApi(APIView):
         pass
 
 
-class GetFCD(APIView):
-    def get(self, request):
-        subcode = self.request.query_params.get('sc')
-        batch = self.request.query_params.get('batch')
-        result = Fetch.objects.filter(subcode=subcode, usn__batch=batch).order_by('usn__usn')
-        serializer = FCDSerializer(result, many=True)
-        return Response(serializer.data)
+class FCD_Section(APIView):
+    def get(self,request):
 
+        qsection = self.request.query_params.get('sec')
+        qusn = self.request.query_params.get('usn')
+        qscode = self.request.query_params.get('scode')
+        qbatch = self.request.query_params.get('batch')
+
+        results = Fetch.objects.filter( usn__section=qsection,subcode=qscode,usn__batch=qbatch).order_by('usn__usn')
+        serializer = SectionFCDSerializer(results, many=True)
+        return Response(serializer.data)
     def post(self):
         pass
+
+
+
+
+
 
 
     
