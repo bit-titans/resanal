@@ -17,6 +17,7 @@ class Result(models.Model):
     section = models.CharField(max_length=1,null=True)
     batch = models.IntegerField(null=True)
     gpa = models.FloatField(null=True, blank = True)
+    totalFCD = models.CharField(max_length=3)
 
     #volume = models.IntegerField
 
