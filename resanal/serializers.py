@@ -29,18 +29,20 @@ class AnalizeSerializer(serializers.ModelSerializer):
 class FCDSerializer(serializers.ModelSerializer):
     name = serializers.CharField(source='usn.name')
     usn = serializers.CharField(source='usn.usn')
+    gpa = serializers.CharField(source='usn.gpa')
     class Meta:
         model = Fetch
-        fields = ('name', 'usn', 'intmarks', 'extmarks', 'totalmarks', 'FCD')
+        fields = ('name', 'usn', 'intmarks', 'extmarks', 'totalmarks', 'FCD', 'gpa')
 
 
 class SectionFCDSerializer(serializers.ModelSerializer):
     name = serializers.CharField(source='usn.name')
     usn = serializers.CharField(source='usn.usn')
     section = serializers.CharField(source='usn.section')
+    gpa = serializers.CharField(source='usn.gpa')
 
     class Meta:
         model = Fetch
-        fields = ('name', 'usn','section','subcode','intmarks', 'extmarks', 'totalmarks', 'FCD')
+        fields = ('name', 'usn','section','subcode','intmarks', 'extmarks', 'totalmarks', 'FCD', 'gpa')
 
 

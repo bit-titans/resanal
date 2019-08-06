@@ -17,7 +17,7 @@ class Result(models.Model):
     section = models.CharField(max_length=1,null=True)
     batch = models.IntegerField(null=True)
     gpa = models.FloatField(null=True, blank = True)
-    totalFCD = models.CharField(max_length=3)
+    totalFCD = models.CharField(max_length=3,blank=True)
 
     #volume = models.IntegerField
 
@@ -36,7 +36,7 @@ class Fetch(models.Model):
     extmarks = models.IntegerField()
     totalmarks = models.IntegerField()
     grade = models.IntegerField(null=True)
-    FCD = models.CharField(max_length=3)
+    FCD = models.CharField(max_length=3,blank=True)
 
     def __str__(self):
         return self.usn.name
