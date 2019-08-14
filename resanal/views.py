@@ -202,7 +202,7 @@ class TotalFCD(APIView):
     def get(self,request):
         batch = self.request.query_params.get('batch')
         semester = self.request.query_params.get('sem')
-        results = Result.objects.filter(batch = batch,sem = semester).order_by('gpa')
+        results = Result.objects.filter(batch = batch,sem = semester).order_by('-gpa')
         serializer = TotalFCDSerializer(results,many = True)
         return Response(serializer.data)
 
