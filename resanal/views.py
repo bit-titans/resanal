@@ -10,7 +10,7 @@ from rest_framework import status
 from .models import Result, Fetch, Analize
 from . crawlusn import CrawlResult
 from . analizeResult import ResultAnalize
-from .serializers import ResultSerializer, FetchSerializer, AnalizeSerializer, SectionFCDSerializer, FCDSerializer
+from .serializers import ResultSerializer, FetchSerializer, AnalizeSerializer, SectionFCDSerializer, FCDSerializer,TotalFCDSerializer
 import requests
 import bs4
 from lxml import html
@@ -197,6 +197,15 @@ class GetFCD(APIView):
         result = Fetch.objects.filter(subcode=subcode, usn__batch=batch).order_by('-usn__gpa')
         serializer = FCDSerializer(result, many=True)
         return Response(serializer.data)
+
+class TotalFCD(APIView):
+    def get(self,request):
+        batch = self.request.query_params.get('batch')
+        semester = self.request.query_params.get('sem')
+        results = Result.objects.filter(batch = batch,sem = semester).order_by('gpa')
+        serializer = TotalFCDSerializer(results,many = True)
+        return Response(serializer.data)
+
 
 
 

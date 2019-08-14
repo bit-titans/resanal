@@ -45,4 +45,8 @@ class SectionFCDSerializer(serializers.ModelSerializer):
         model = Fetch
         fields = ('name', 'usn','section','subcode','intmarks', 'extmarks', 'totalmarks', 'FCD', 'gpa')
 
+class TotalFCDSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Result
+        fields = ('name','usn','semester','gpa','totalFCD')
 
