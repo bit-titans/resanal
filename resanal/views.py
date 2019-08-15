@@ -15,7 +15,7 @@ import requests
 import bs4
 from lxml import html
 import re
-
+import os
 
 class MultiAPIView(ObjectMultipleModelAPIView):
     def get_querylist(self):
@@ -206,7 +206,12 @@ class TotalFCD(APIView):
         serializer = TotalFCDSerializer(results,many = True)
         return Response(serializer.data)
 
-
+class TestAPI(APIView):
+    def get(self,request):
+        with open('C:\\Clones\\resanal\\resanal\\test.xlsx', 'rb') as fh:
+            response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename('C:\\Clones\\resanal\\resanal\\test.xlsx')
+            return response
 
 
 

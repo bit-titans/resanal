@@ -14,7 +14,8 @@ urlpatterns = [
     url(r'^ranalysis/',views.AnalizeApi.as_view()),
     url(r'^getfcd/',views.GetFCD.as_view()),
     url(r'^secfcd/',views.FCD_Section.as_view()),
-    url(r'^totalfcd/',views.TotalFCD.as_view())
+    url(r'^totalfcd/',views.TotalFCD.as_view()),
+    url(r'^test/',views.TestAPI.as_view())
 ]
 
 #urlpatterns = format_suffix_patterns(urlpatterns)
