@@ -216,7 +216,10 @@ class GenXL(APIView):
         qsection = self.request.query_params.get('sec')
         qscode = self.request.query_params.get('scode')
         qbatch = self.request.query_params.get('batch')
-        results = Fetch.objects.filter( usn__section=qsection,subcode=qscode,usn__batch=qbatch).order_by('usn__usn')
+        if qsection=="undefined":
+            results = Fetch.objects.filter(subcode=qscode, usn__batch=qbatch).order_by('usn__usn')
+        else:
+            results = Fetch.objects.filter( usn__section=qsection,subcode=qscode,usn__batch=qbatch).order_by('usn__usn')
         workbook = xlsxwriter.Workbook('Export.xlsx')
         worksheet = workbook.add_worksheet()
         heading = workbook.add_format({'bold': True, 'border':1})
