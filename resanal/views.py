@@ -16,7 +16,7 @@ import bs4
 from lxml import html
 import re
 import os
-
+import xlsxwriter
 class MultiAPIView(ObjectMultipleModelAPIView):
     def get_querylist(self):
         
@@ -206,11 +206,77 @@ class TotalFCD(APIView):
         serializer = TotalFCDSerializer(results,many = True)
         return Response(serializer.data)
 
-class TestAPI(APIView):
+class GenXL(APIView):
     def get(self,request):
-        with open('C:\\Clones\\resanal\\resanal\\test.xlsx', 'rb') as fh:
+        cFCD = 0
+        cFC = 0
+        cSC = 0
+        cP = 0
+        cF = 0
+        qsection = self.request.query_params.get('sec')
+        qscode = self.request.query_params.get('scode')
+        qbatch = self.request.query_params.get('batch')
+        results = Fetch.objects.filter( usn__section=qsection,subcode=qscode,usn__batch=qbatch).order_by('usn__usn')
+        workbook = xlsxwriter.Workbook('Export.xlsx')
+        worksheet = workbook.add_worksheet()
+        heading = workbook.add_format({'bold': True, 'border':1})
+        worksheet.write(0,0,"Student Name",heading)
+        worksheet.write(0,1,"Student USN",heading)
+        merge_format = workbook.add_format({'align': 'center', 'bold': True, 'border':1})
+        border_format = workbook.add_format({'border':1})
+        border_format_fcd_green = workbook.add_format({'border':1,'bg_color':'green'})
+        border_format_fcd_blue = workbook.add_format({'border':1,'bg_color':'blue'})
+        border_format_fcd_yellow = workbook.add_format({'border':1,'bg_color':'yellow'})
+        border_format_fcd_purple= workbook.add_format({'border':1,'bg_color':'purple'})
+        border_format_fcd_red = workbook.add_format({'border':1,'bg_color':'red'})
+        worksheet.merge_range('C1:F1', results[0].subname , merge_format)
+        worksheet.write(1,2,"Internal Marks",heading)
+        worksheet.write(1,3,"External Marks",heading)
+        worksheet.write(1,4,"Total Marks",heading)
+        worksheet.write(1,5,"Class",heading)
+        j = 2
+        for i in results:
+            if i.FCD=="FCD":
+                fcd_format = border_format_fcd_green
+                cFCD = cFCD + 1
+            elif i.FCD=="FC":
+                fcd_format = border_format_fcd_blue
+                cFC = cFC + 1
+            elif i.FCD=="SC":
+                fcd_format = border_format_fcd_yellow
+                cSC = cSC + 1
+            elif i.FCD=="P":
+                fcd_format = border_format_fcd_purple
+                cP = cP + 1
+            elif i.FCD=="F":
+                fcd_format = border_format_fcd_red
+                cF = cF + 1
+            worksheet.write(j,0,i.usn.name,border_format)
+            worksheet.write(j,1,i.usn.usn,border_format)
+            worksheet.write(j,2,i.intmarks,border_format)
+            worksheet.write(j,3,i.extmarks,border_format)
+            worksheet.write(j,4,i.totalmarks,border_format)
+            worksheet.write(j,5,i.FCD,fcd_format)
+            j = j+1
+        worksheet.write('O4',"FCD",heading)
+        worksheet.write('P4',"FC",heading)
+        worksheet.write('Q4',"SC",heading)
+        worksheet.write('R4',"P",heading)
+        worksheet.write('S4',"F",heading)
+        worksheet.write('O5',cFCD,border_format)
+        worksheet.write('P5',cFC,border_format)
+        worksheet.write('Q5',cSC,border_format)
+        worksheet.write('R5',cP,border_format)
+        worksheet.write('S5',cF,border_format)      
+        chart = workbook.add_chart({'type': 'column'})
+        data = ["FCD","FC","SC","P","F"]
+        chart.add_series({'data_labels': {'value': True, 'position':'inside_end'},'categories': '=Sheet1!$O$4:$S$4','values': '=Sheet1!$O$5:$S$5'})
+        chart.set_legend({'none': True})
+        worksheet.insert_chart('O9', chart)
+        workbook.close()
+        with open('C:\Clones\\resanal\Export.xlsx', 'rb') as fh:
             response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
-            response['Content-Disposition'] = 'inline; filename=' + os.path.basename('C:\\Clones\\resanal\\resanal\\test.xlsx')
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename('C:\Clones\\resanal\Export.xlsx')
             return response
 
 
