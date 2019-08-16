@@ -11,6 +11,8 @@ for i in Result.objects.all():
         FCD = "FC"
     elif 400 <= total <= 499:
         FCD = "SC"
+    elif i.gpa == None:
+        FCD= "-"
     else:
         FCD = "P"
     print("Entry " + str(k) + ":-FCD=" + FCD)
