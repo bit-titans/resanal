@@ -35,7 +35,7 @@ class Fetch(models.Model):
     intmarks = models.IntegerField()
     extmarks = models.IntegerField()
     totalmarks = models.IntegerField()
-    grade = models.IntegerField(null=True)
+    grade = models.IntegerField(null=True,blank=True)
     FCD = models.CharField(max_length=3,blank=True)
 
     def __str__(self):

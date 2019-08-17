@@ -1,7 +1,7 @@
 from resanal.models import Result, Fetch
 
 k = 1
-for i in Result.objects.all():
+for i in Result.objects.filter(batch="2018"):
     total = 0
     for j in i.maping.all():
         total += j.totalmarks
@@ -11,8 +11,8 @@ for i in Result.objects.all():
         FCD = "FC"
     elif 400 <= total <= 499:
         FCD = "SC"
-    elif i.gpa == None:
-        FCD= "-"
+    #elif i.gpa == None:
+     #   FCD= "-"
     else:
         FCD = "P"
     print("Entry " + str(k) + ":-FCD=" + FCD)
