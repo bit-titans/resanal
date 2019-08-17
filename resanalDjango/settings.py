@@ -27,7 +27,7 @@ DEBUG = True
 IMPORT_EXPORT_USE_TRANSACTIONS = True
 
 CORS_ORIGIN_ALLOW_ALL = True
-ALLOWED_HOSTS = ['vkhand.pythonanywhere.com','127.0.0.1']
+ALLOWED_HOSTS = ['vkhand.pythonanywhere.com','127.0.0.1','rottiakash.pythonanywhere.com']
 
 
 # Application definition
@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'drf_multiple_model',
     'resanal.apps.ResanalConfig',
     'import_export',
-    
+
 ]
 
 # REST_FRAMEWORK = {
