@@ -19,15 +19,15 @@ import os
 import xlsxwriter
 class MultiAPIView(ObjectMultipleModelAPIView):
     def get_querylist(self):
-        
 
-        
+
+
         qsemester= self.request.query_params.get('sem')
         qbatch = self.request.query_params.get('batch')
         qsection = self.request.query_params.get('sec')
         if(qsemester and qbatch and qsection):
             querylist = (
-                
+
                 {
                     'queryset': Result.objects.filter(sem = qsemester, batch=qbatch,section=qsection, gpa__gte = 4),
                     'serializer_class': ResultSerializer,
@@ -43,7 +43,7 @@ class MultiAPIView(ObjectMultipleModelAPIView):
             return querylist
         elif(qsemester and qbatch):
             querylist = (
-                
+
                 {
                     'queryset': Result.objects.filter(sem = qsemester, batch=qbatch, gpa__gte = 4),
                     'serializer_class': ResultSerializer,
@@ -57,10 +57,10 @@ class MultiAPIView(ObjectMultipleModelAPIView):
             )
 
             return querylist
-        
+
             # filter_backends = [filters.SearchFilter,]
             # search_fields = ('usn',)
-   
+
 class ResultList(APIView):
     def get(self,request):
         #results = Result.objects.all()
@@ -96,14 +96,14 @@ class ResultList(APIView):
 
         if(qsemester and qusn is not None):
             qusn = qusn + "\\n"
-            
+
             print (qusn)
-            
+
             results = queryset.filter(sem = qsemester, usn__iexact = qusn)
 
             serializer = ResultSerializer(results, many=True )
             return Response(serializer.data)
-    
+
         if(qsemester and qbatch is not None):
             results = queryset.filter(sem = qsemester, batch = qbatch)
 
@@ -116,13 +116,13 @@ class ResultList(APIView):
             return Response(serializer.data)
     # def get_serializer_class(self):
     #     return ResultSerializer
-    
+
     def post(self):
         pass
 
 class FetchList(APIView):
     def get(self, request):
-        
+
         fetches = Fetch.objects.filter(usn__sem = 4,usn__section = 'C', usn__batch = 2016,subcode='15CS42',totalmarks__gte= 40)
 
         serializer = FetchSerializer(fetches, many=True )
@@ -132,12 +132,12 @@ class FetchList(APIView):
         pass
 
 def crawl(request):
-    
+
     resultcrawl = CrawlResult()
     resultcrawl.initiate()
 
     return HttpResponse("<h1>Crawling Done</h1>")
-    
+
 class ResultsView(generic.ListView):
     template_name = 'resanal/index.html'
     context_object_name = 'all_student'
@@ -145,16 +145,16 @@ class ResultsView(generic.ListView):
     def get_queryset(self):
         return Result.objects.all()
 
-   
+
 def analysis(request):
 
     resultanalize = ResultAnalize()
     resultanalize.analizeresult()
 
     return HttpResponse("<h1> Analysis Done! Check your website</h1>")
-                    
 
- 
+
+
 class  AnalizeApi(APIView):
     def get(self, request):
         qsemester= self.request.query_params.get('sem')
@@ -270,16 +270,16 @@ class GenXL(APIView):
         worksheet.write('P5',cFC,border_format)
         worksheet.write('Q5',cSC,border_format)
         worksheet.write('R5',cP,border_format)
-        worksheet.write('S5',cF,border_format)      
+        worksheet.write('S5',cF,border_format)
         chart = workbook.add_chart({'type': 'column'})
         data = ["FCD","FC","SC","P","F"]
         chart.add_series({'data_labels': {'value': True, 'position':'inside_end'},'categories': '=Sheet1!$O$4:$S$4','values': '=Sheet1!$O$5:$S$5'})
         chart.set_legend({'none': True})
         worksheet.insert_chart('O9', chart)
         workbook.close()
-        with open('C:\Clones\\resanal\Export.xlsx', 'rb') as fh:
+        with open('/home/rottiakash/Export.xlsx', 'rb') as fh:
             response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
-            response['Content-Disposition'] = 'inline; filename=' + os.path.basename('C:\Clones\\resanal\Export.xlsx')
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename('/home/rottiakash/Export.xlsx')
             return response
 
 class genXLDash(APIView):
@@ -329,7 +329,7 @@ class genXLDash(APIView):
             worksheet.write(j,2,i.section,border_format)
             worksheet.write(j,3,i.gpa,border_format)
             worksheet.merge_range(j,4,j,5,i.totalFCD,fcd_format)
-            j = j+1        
+            j = j+1
         worksheet.write('O4',"FCD",heading)
         worksheet.write('P4',"FC",heading)
         worksheet.write('Q4',"SC",heading)
@@ -359,16 +359,16 @@ class genXLDash(APIView):
 })
         worksheet.insert_chart('O31', Pchart)
         workbook.close()
-        with open('C:\Clones\\resanal\Export.xlsx', 'rb') as fh:
+        with open('/home/rottiakash/Export.xlsx', 'rb') as fh:
             response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
-            response['Content-Disposition'] = 'inline; filename=' + os.path.basename('C:\Clones\\resanal\Export.xlsx')
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename('/home/rottiakash/Export.xlsx')
             return response
 
 
-    
 
 
-    
+
+
 
 
 
