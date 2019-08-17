@@ -15,7 +15,8 @@ urlpatterns = [
     url(r'^getfcd/',views.GetFCD.as_view()),
     url(r'^secfcd/',views.FCD_Section.as_view()),
     url(r'^totalfcd/',views.TotalFCD.as_view()),
-    url(r'^genXL/',views.GenXL.as_view())
+    url(r'^genXL/',views.GenXL.as_view()),
+    url(r'^genXLDash/',views.genXLDash.as_view())
 ]
 
 #urlpatterns = format_suffix_patterns(urlpatterns)
