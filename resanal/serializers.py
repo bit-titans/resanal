@@ -49,5 +49,5 @@ class SectionFCDSerializer(serializers.ModelSerializer):
 class TotalFCDSerializer(serializers.ModelSerializer):
     class Meta:
         model = Result
-        fields = ('name','usn','sem','gpa','totalFCD')
+        fields = ('name','usn','sem','gpa','totalFCD','section')
 
