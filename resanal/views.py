@@ -185,6 +185,8 @@ class FCD_Section(APIView):
         qbatch = self.request.query_params.get('batch')
 
         results = Fetch.objects.filter( usn__section=qsection,subcode=qscode,usn__batch=qbatch).order_by('-usn__gpa')
+        if len(results) == 0:
+            return HttpResponse(status=204)
         serializer = SectionFCDSerializer(results, many=True)
         return Response(serializer.data)
     def post(self):
@@ -195,6 +197,8 @@ class GetFCD(APIView):
         subcode = self.request.query_params.get('sc')
         batch = self.request.query_params.get('batch')
         result = Fetch.objects.filter(subcode=subcode, usn__batch=batch).order_by('-usn__gpa')
+        if len(results) == 0:
+            return HttpResponse(status=204)
         serializer = FCDSerializer(result, many=True)
         return Response(serializer.data)
 
@@ -203,6 +207,8 @@ class TotalFCD(APIView):
         batch = self.request.query_params.get('batch')
         semester = self.request.query_params.get('sem')
         results = Result.objects.filter(batch = batch,sem = semester).order_by('-gpa')
+        if len(results) == 0:
+            return HttpResponse(status=204)
         serializer = TotalFCDSerializer(results,many = True)
         return Response(serializer.data)
 
