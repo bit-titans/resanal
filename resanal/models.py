@@ -49,7 +49,7 @@ class Analize(models.Model):
     batch = models.IntegerField()
     sem = models.IntegerField()
     sec = models.CharField(max_length = 1)
-    subcode = models.CharField(max_length = 10)
+    subcode = models.CharField(max_length = 8)
     passCount = models.FloatField()
     failCount = models.FloatField()
     totalCount = models.FloatField()
