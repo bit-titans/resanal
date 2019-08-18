@@ -1,1 +1,1 @@
-web: gunicorn resanal.wsgi
+web: gunicorn resanalDjango.wsgi
