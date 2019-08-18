@@ -283,9 +283,9 @@ class GenXL(APIView):
         chart.set_legend({'none': True})
         worksheet.insert_chart('O9', chart)
         workbook.close()
-        with open('/home/rottiakash/Export.xlsx', 'rb') as fh:
+        with open('/app/Export.xlsx', 'rb') as fh:
             response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
-            response['Content-Disposition'] = 'inline; filename=' + os.path.basename('/home/rottiakash/Export.xlsx')
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename('/app/Export.xlsx')
             return response
 
 class genXLDash(APIView):
@@ -365,9 +365,9 @@ class genXLDash(APIView):
 })
         worksheet.insert_chart('O31', Pchart)
         workbook.close()
-        with open('/home/rottiakash/Export.xlsx', 'rb') as fh:
+        with open('/app/Export.xlsx', 'rb') as fh:
             response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
-            response['Content-Disposition'] = 'inline; filename=' + os.path.basename('/home/rottiakash/Export.xlsx')
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename('/app/Export.xlsx')
             return response
 
 
