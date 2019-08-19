@@ -197,7 +197,7 @@ class GetFCD(APIView):
         subcode = self.request.query_params.get('sc')
         batch = self.request.query_params.get('batch')
         result = Fetch.objects.filter(subcode=subcode, usn__batch=batch).order_by('-totalmarks')
-        if len(results) == 0:
+        if len(result) == 0:
             return HttpResponse(status=204)
         serializer = FCDSerializer(result, many=True)
         return Response(serializer.data)
