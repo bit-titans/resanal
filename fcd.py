@@ -1,6 +1,6 @@
 from resanal.models import Fetch
 j = 1
-for i in Fetch.objects.filter(usn__batch="2018"):
+for i in Fetch.objects.filter(usn__batch="2017",usn__sem=3):
     if 70 <= i.totalmarks <= 100:
         FCD = "FCD"
     elif 60 <= i.totalmarks <= 69:
