@@ -184,7 +184,7 @@ class FCD_Section(APIView):
         qscode = self.request.query_params.get('scode')
         qbatch = self.request.query_params.get('batch')
 
-        results = Fetch.objects.filter( usn__section=qsection,subcode=qscode,usn__batch=qbatch).order_by('-usn__gpa')
+        results = Fetch.objects.filter( usn__section=qsection,subcode=qscode,usn__batch=qbatch).order_by('-totalmarks')
         if len(results) == 0:
             return HttpResponse(status=204)
         serializer = SectionFCDSerializer(results, many=True)
@@ -196,7 +196,7 @@ class GetFCD(APIView):
     def get(self, request):
         subcode = self.request.query_params.get('sc')
         batch = self.request.query_params.get('batch')
-        result = Fetch.objects.filter(subcode=subcode, usn__batch=batch).order_by('-usn__gpa')
+        result = Fetch.objects.filter(subcode=subcode, usn__batch=batch).order_by('-totalmarks')
         if len(results) == 0:
             return HttpResponse(status=204)
         serializer = FCDSerializer(result, many=True)
