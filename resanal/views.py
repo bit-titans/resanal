@@ -372,7 +372,9 @@ class genXLDash(APIView):
 
 
 
-
+class Wake(APIView):
+    def get(self,request):
+        return HttpResponse(status=200)
 
 
 
