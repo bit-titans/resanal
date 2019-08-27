@@ -10,7 +10,7 @@ while True:
     if first_sheet.cell_value(i,0) == "end":
         break
     print("USN:-"+first_sheet.cell_value(i,0))
-    s = Result.objects.filter(usn=first_sheet.cell_value(i,0),sem=3)[0]
+    s = Result.objects.filter(usn=first_sheet.cell_value(i,0),sem=4)[0]
     s1 = Fetch()
     s1.usn = s
     s1.subcode = "17CPH49"

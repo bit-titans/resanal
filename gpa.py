@@ -1,9 +1,10 @@
 from resanal.models import Result,Fetch
 
-for i in Result.objects.filter(batch="2015",sem=7):
+for i in Result.objects.filter(batch="2017",sem=4):
     print(i.usn)
     totalgrade = 0
     gpa = 0
+    total = 270
     roundoff = 0
     for j in i.maping.all():
         if j.subcode=="17MAT41":
@@ -24,7 +25,8 @@ for i in Result.objects.filter(batch="2015",sem=7):
                 totalgrade += j.grade*2
         if j.subcode=="17CPH49":
                 totalgrade += j.grade*1
-    gpa = (totalgrade/280)*10
+                total = 280
+    gpa = (totalgrade/total)*10
     roundoff = round(gpa,2)
     print(roundoff)
     i.gpa = roundoff
