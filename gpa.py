@@ -1,6 +1,6 @@
 from resanal.models import Result,Fetch
 
-for i in Result.objects.filter(batch="2017",sem=4):
+for i in Result.objects.filter(batch="2017",sem=4,usn__icontains='18'):
     print(i.usn)
     totalgrade = 0
     gpa = 0
