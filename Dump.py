@@ -1,7 +1,7 @@
 from resanal.models import Fetch,Result
 import xlrd
 
-book = xlrd.open_workbook('2017_4th.xlsx')
+book = xlrd.open_workbook('2017_4th_DIP.xlsx')
 first_sheet = book.sheet_by_index(0)
 #print(first_sheet.cell_value(0,0))
 i = 2

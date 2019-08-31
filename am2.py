@@ -13,17 +13,14 @@ while True:
     s = Result.objects.filter(usn=first_sheet.cell_value(i,0),sem=4)[0]
     s1 = Fetch()
     s1.usn = s
-    s1.subcode = "17CPH49"
-    s1.subname = "CONSTITUTION OF INDIA, PROFESSIONAL ETHICS AND HUMAN RIGHTS"
-    s1.intmarks = first_sheet.cell_value(i,35)
-    s1.extmarks = first_sheet.cell_value(i,36)
-    s1.totalmarks = first_sheet.cell_value(i,37)
-    grade = 0
+    s1.subcode = "17MATDIP41"
+    s1.subname = "Additional Mathematics-II"
+    s1.intmarks = first_sheet.cell_value(i,39)
+    s1.extmarks = first_sheet.cell_value(i,40)
+    s1.totalmarks = first_sheet.cell_value(i,41)
     fcd = "F"
-    if  first_sheet.cell_value(i,38) == "P":
-        grade = 10
+    if  first_sheet.cell_value(i,42) == "P":
         fcd = "FCD"
-    s1.grade = grade
     s1.FCD = fcd
     if  first_sheet.cell_value(i,38) != "-":
         s1.save()
