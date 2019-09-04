@@ -24,6 +24,9 @@ while True:
     s6 = Fetch()
     s7 = Fetch()
     s8 = Fetch()
+    s9 = Fetch()
+    s10 = Fetch()
+    s11 = Fetch()
     #sub1
     s1.usn = s
     s1.subcode = "15CS61"
