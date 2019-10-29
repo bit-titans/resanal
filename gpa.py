@@ -1,34 +1,26 @@
 from resanal.models import Result,Fetch
 
-for i in Result.objects.filter(batch="2016",sem=6):
+for i in Result.objects.filter(batch="2017",sem=1):
     print(i.usn)
     totalgrade = 0
     gpa = 0
     roundoff = 0
     for j in i.maping.all():
-        if j.subcode=="15CS61":
+        if j.subcode=="17MAT11":
                 totalgrade += j.grade*4
-        if j.subcode=="15CS62":
+        if j.subcode=="17PHY12":
                 totalgrade += j.grade*4
-        if j.subcode=="15CS63":
+        if j.subcode=="17CIV13":
                 totalgrade += j.grade*4
-        if j.subcode=="15CS64":
+        if j.subcode=="17EME14":
                 totalgrade += j.grade*4
-        if j.subcode=="15CSL67":
+        if j.subcode=="17ELE15":
+                totalgrade += j.grade*4
+        if j.subcode=="17WSL16":
                 totalgrade += j.grade*2
-        if j.subcode=="15CSL68":
+        if j.subcode=="17PHYL17":
                 totalgrade += j.grade*2
-        if j.subcode=="15CS651":
-                totalgrade += j.grade*3
-        if j.subcode=="15CS653":
-                totalgrade += j.grade*3
-        if j.subcode=="15CS664":
-                totalgrade += j.grade*3
-        if j.subcode=="15IM663":
-                totalgrade += j.grade*3
-        if j.subcode=="15MAT661":
-                totalgrade += j.grade*3
-    gpa = (totalgrade/260)*10
+    gpa = (totalgrade/240)*10
     roundoff = round(gpa,2)
     print(roundoff)
     i.gpa = roundoff
