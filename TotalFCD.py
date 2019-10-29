@@ -1,15 +1,15 @@
 from resanal.models import Result, Fetch
 
 k = 1
-for i in Result.objects.filter(batch="2016",sem=6):
+for i in Result.objects.filter(batch="2017",sem=1):
     total = 0
     for j in i.maping.all():
         total += j.totalmarks
-    if total >= 560:
+    if total >= 490:
         FCD = "FCD"
-    elif 480 <= total <= 559:
+    elif 420 <= total <= 489:
         FCD = "FC"
-    elif 400 <= total <= 499:
+    elif 350 <= total <= 419:
         FCD = "SC"
     else:
         FCD = "P"
