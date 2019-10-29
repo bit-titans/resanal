@@ -4,6 +4,13 @@ from __future__ import unicode_literals
 from django.db import models
 
 # Create your models here.
+class Student(models.Model):
+    name = models.CharField(max_length = 40)
+    usn = models.CharField(max_length = 50)
+    section = models.CharField(max_length=1,null=True)
+    batch = models.IntegerField(null=True)
+    cgpa = models.FloatField(null=True, blank=True)
+
 
 class Result(models.Model):
 
