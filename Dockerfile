@@ -11,6 +11,4 @@ RUN apt-get -y install nginx \
 RUN pip install -r requirements.txt
 
 COPY nginx.conf /etc/nginx
-COPY start.sh /app/
-RUN chmod +x ./start.sh
-CMD ["sudo ./start.sh"]
+CMD ["sudo service nginx start && sudo gunicorn -w 3 --bind unix:resnal.sock -m 007  resanalDjango.wsgi"]
