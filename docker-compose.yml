@@ -6,7 +6,7 @@ services:
     ports:
       - "80:80"
   back:
-    image: rottiakash/resnal
+    image: rottiakash/resnal:v2
     volumes:
       - ./:/app
     ports:

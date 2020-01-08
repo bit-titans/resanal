@@ -13,4 +13,4 @@ RUN pip install -r requirements.txt
 COPY nginx.conf /etc/nginx
 COPY start.sh /app/
 RUN chmod +x ./start.sh
-CMD ["./start.sh"]
+CMD ["sudo ./start.sh"]
