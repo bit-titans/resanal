@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-service nginx start
+sudo service nginx start
 cd /app
-gunicorn -w 3 --bind unix:resnal.sock -m 007  resanalDjango.wsgi
+sudo gunicorn -w 3 --bind unix:resnal.sock -m 007  resanalDjango.wsgi
