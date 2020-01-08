@@ -11,4 +11,4 @@ RUN apt-get -y install nginx \
 RUN pip install -r requirements.txt
 
 COPY nginx.conf /etc/nginx
-CMD ./start.sh
+CMD chmod +X ./start.sh && ./start.sh
