@@ -17,6 +17,7 @@ urlpatterns = [
     url(r'^totalfcd/',views.TotalFCD.as_view()),
     url(r'^genXL/',views.GenXL.as_view()),
     url(r'^genXLDash/',views.genXLDash.as_view()),
+    url(r'^genallXL/',views.getAllXL.as_view()),
     url(r'^wake/',views.Wake.as_view())
 ]
 
