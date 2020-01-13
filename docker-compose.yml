@@ -4,7 +4,7 @@ services:
   front:
     image: rottiakash/resnal-angular-base:v3
     ports:
-      - "80:80"
+      - "443:80"
   back:
     image: rottiakash/resnal:v2
     volumes:
