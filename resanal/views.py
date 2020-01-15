@@ -366,8 +366,8 @@ class genXLDash(APIView):
         worksheet.insert_chart('O31', Pchart)
         workbook.close()
         with open('/home/ubuntu/resanal/Export.xlsx', 'rb') as fh:
-            response = HttpResponse(fh.read(), content_type="application/vnd.ms"-"excel")
-            response['Content"-"Disposition'] = 'inline; filename=' + os.path.basename('/home/ubuntu/resanal/Export.xlsx')
+            response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
+            response['ContentDisposition'] = 'inline; filename=' + os.path.basename('/home/ubuntu/resanal/Export.xlsx')
             return response
 
 class getAllXL(APIView):
