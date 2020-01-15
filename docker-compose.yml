@@ -5,6 +5,10 @@ services:
     image: rottiakash/resnal-angular-base:v3
     ports:
       - "443:80"
+      - "80:80"
+    volumes:
+      - ./data/nginx:/etc/nginx/conf.d
+      - /etc/letsencrypt:/etc/letsencrypt
   back:
     image: rottiakash/resnal:v2
     volumes:
